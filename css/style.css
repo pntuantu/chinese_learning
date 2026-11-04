@@ -1,0 +1,186 @@
+/* Hoa Ngữ Tinh Thông — Custom Stylesheet */
+body {
+      font-family: 'Inter', sans-serif;
+      background-color: #faf8f5;
+      color: #1c1917;
+      overflow-x: hidden;
+    }
+    .hanzi-font { font-family: 'Noto Sans SC', sans-serif; }
+    .hanzi-serif { font-family: 'Noto Serif SC', serif; }
+    .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: #f5f5f4; border-radius: 4px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 4px; }
+    .custom-scroll::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
+    .perspective-1000 { perspective: 1000px; }
+    .flip-card-inner {
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-card-back { transform: rotateY(180deg); }
+    .mizige-bg {
+      background-color: #fffdf9;
+      background-image:
+        linear-gradient(to right, rgba(220, 38, 38, 0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220, 38, 38, 0.2) 1px, transparent 1px);
+      background-size: 50% 50%;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade { animation: fadeIn 0.25s ease-out forwards; }
+
+    /* Hanzi Font Size Scaling (Group 3.2) */
+    body.hanzi-scale-lg .hanzi-font,
+    body.hanzi-scale-lg .hanzi-serif {
+      font-size: 122% !important;
+      line-height: 1.45 !important;
+    }
+    body.hanzi-scale-xl .hanzi-font,
+    body.hanzi-scale-xl .hanzi-serif {
+      font-size: 142% !important;
+      line-height: 1.5 !important;
+    }
+
+    /* Cinematic Gacha & Level Up Overlay Animations */
+    @keyframes gachaRaySpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes meteorStreak {
+      0% { transform: translate(-120%, -120%) rotate(45deg) scale(0.5); opacity: 0; }
+      40% { opacity: 1; }
+      100% { transform: translate(120%, 120%) rotate(45deg) scale(1.6); opacity: 0; }
+    }
+    @keyframes cardSlamIn {
+      0% { transform: scale(2.4) translateY(-40px) rotate(-8deg); opacity: 0; filter: blur(10px); }
+      60% { transform: scale(0.92) translateY(5px) rotate(2deg); opacity: 1; filter: blur(0px); }
+      100% { transform: scale(1) translateY(0) rotate(0deg); opacity: 1; }
+    }
+    @keyframes pulseAuraGold {
+      0%, 100% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.4), 0 0 60px rgba(245, 158, 11, 0.2); }
+      50% { box-shadow: 0 0 50px rgba(245, 158, 11, 0.8), 0 0 90px rgba(234, 88, 12, 0.4); }
+    }
+    @keyframes pulseAuraPurple {
+      0%, 100% { box-shadow: 0 0 25px rgba(168, 85, 247, 0.4), 0 0 60px rgba(168, 85, 247, 0.2); }
+      50% { box-shadow: 0 0 50px rgba(168, 85, 247, 0.8), 0 0 90px rgba(217, 70, 239, 0.4); }
+    }
+    @keyframes pulseAuraBlue {
+      0%, 100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+      50% { box-shadow: 0 0 45px rgba(56, 189, 248, 0.7); }
+    }
+    .anim-ray-spin { animation: gachaRaySpin 16s linear infinite; }
+    .anim-card-slam { animation: cardSlamIn 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    .aura-gold { animation: pulseAuraGold 2s infinite ease-in-out; }
+    .aura-purple { animation: pulseAuraPurple 2s infinite ease-in-out; }
+    .aura-blue { animation: pulseAuraBlue 2s infinite ease-in-out; }
+
+    /* Cosmetics & Skin System: Shanshui Ink Frame, Gold Dragon Frame & Full Web Themes */
+    @keyframes inkPulseBorder {
+      0%, 100% { box-shadow: 0 0 0 2px #1c1917, 0 0 18px rgba(28, 25, 23, 0.35), inset 0 0 12px rgba(28, 25, 23, 0.12); }
+      50% { box-shadow: 0 0 0 3px #44403c, 0 0 28px rgba(28, 25, 23, 0.6), inset 0 0 18px rgba(28, 25, 23, 0.22); }
+    }
+    @keyframes dragonGoldBorder {
+      0%, 100% { box-shadow: 0 0 0 2px #f59e0b, 0 0 20px rgba(245, 158, 11, 0.45); }
+      50% { box-shadow: 0 0 0 3px #fbbf24, 0 0 34px rgba(234, 88, 12, 0.75); }
+    }
+    body.skin-frame-ink .lesson-card-skin,
+    body.skin-frame-ink .main-tab-btn.bg-vermilion-600 {
+      border: 2px solid #1c1917 !important;
+      animation: inkPulseBorder 3.5s infinite ease-in-out;
+      background-image: radial-gradient(circle at top right, rgba(68, 64, 60, 0.16), transparent 65%);
+    }
+    body.skin-frame-ink #user-avatar-frame {
+      border: 2px solid #e7e5e4 !important;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.55), inset 0 0 10px rgba(28, 25, 23, 0.8);
+      background: linear-gradient(135deg, #1c1917 0%, #44403c 50%, #0c0a09 100%) !important;
+    }
+    body.skin-frame-dragon .lesson-card-skin,
+    body.skin-frame-dragon #user-avatar-frame {
+      border: 2px solid #f59e0b !important;
+      animation: dragonGoldBorder 2.5s infinite ease-in-out;
+    }
+    /* Full Web Premium Theme: Shanshui Xuan Paper (Thủy Mặc Cổ Phong) */
+    body.web-theme-shanshui {
+      background-color: #f3efe6 !important;
+      background-image: radial-gradient(rgba(28, 25, 23, 0.04) 1px, transparent 0) !important;
+      background-size: 24px 24px !important;
+    }
+    body.web-theme-shanshui .bg-white {
+      background-color: #faf7f0 !important;
+      border-color: #d6cfc2 !important;
+    }
+    /* Full Web Premium Theme: Imperial Palace (Tử Cấm Thành Hoàng Gia) */
+    body.web-theme-imperial {
+      background-color: #fffbeb !important;
+    }
+    body.web-theme-imperial .bg-white {
+      background-color: #fffdf7 !important;
+      border-color: #fcd34d !important;
+    }
+
+    /* Night / Dark Mode Theme (Group 3.2) */
+    body.dark-mode {
+      background-color: #0c0a09 !important;
+      color: #f5f5f4 !important;
+    }
+    body.dark-mode .bg-white {
+      background-color: #1c1917 !important;
+      color: #f5f5f4 !important;
+    }
+    body.dark-mode .bg-stone-50,
+    body.dark-mode .bg-stone-100 {
+      background-color: #292524 !important;
+      color: #e7e5e4 !important;
+    }
+    body.dark-mode .text-stone-900,
+    body.dark-mode .text-stone-800 {
+      color: #fafaf9 !important;
+    }
+    body.dark-mode .text-stone-700,
+    body.dark-mode .text-stone-600 {
+      color: #d6d3d1 !important;
+    }
+    body.dark-mode .text-stone-500 {
+      color: #a8a29e !important;
+    }
+    body.dark-mode .border-stone-200,
+    body.dark-mode .border-stone-300,
+    body.dark-mode .border-stone-100 {
+      border-color: #44403c !important;
+    }
+    body.dark-mode input,
+    body.dark-mode select,
+    body.dark-mode textarea {
+      background-color: #292524 !important;
+      color: #fafaf9 !important;
+      border-color: #57534e !important;
+    }
+    body.dark-mode .bg-amber-50,
+    body.dark-mode .bg-amber-50\/70,
+    body.dark-mode .bg-amber-50\/80,
+    body.dark-mode .bg-amber-50\/50 {
+      background-color: rgba(120, 53, 15, 0.28) !important;
+      color: #fef3c7 !important;
+      border-color: rgba(217, 119, 6, 0.45) !important;
+    }
+    body.dark-mode .bg-emerald-50,
+    body.dark-mode .bg-emerald-50\/70 {
+      background-color: rgba(6, 78, 59, 0.32) !important;
+      color: #d1fae5 !important;
+      border-color: rgba(16, 185, 129, 0.45) !important;
+    }
+    body.dark-mode .bg-rose-50,
+    body.dark-mode .bg-rose-50\/70 {
+      background-color: rgba(136, 19, 55, 0.32) !important;
+      color: #ffe4e6 !important;
+      border-color: rgba(244, 63, 94, 0.45) !important;
+    }
+    body.dark-mode .mizige-bg {
+      background-color: #262320 !important;
+    }
