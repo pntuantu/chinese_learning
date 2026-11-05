@@ -1,4 +1,4 @@
-// Tab 5 (Luyện đề), Tab 6 (Sổ tay/Radar), Cloud Sync & Bộ điều hướng Mục tiêu (Guided Learning Paths)
+// Tab 5, Tab 6, Tab 7 (WeChat & Shadowing), Cloud Sync & Bộ điều hướng Mục tiêu
 // 11. TAB 5 CONTROLLER: PRACTICE ARENA (QUIZ, SENTENCE BUILDER, TRANSLATION)
     // =========================================================================
     const ARENA_STATE = {

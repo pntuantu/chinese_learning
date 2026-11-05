@@ -1154,6 +1154,159 @@
       </div>
     </div>
   </footer>
+
+  <!-- ==================== HANDS-FREE PASSIVE RADIO FLOATING PLAYER ==================== -->
+  <div id="handsfree-radio-bar" class="fixed bottom-16 sm:bottom-4 left-4 z-40 hidden bg-stone-900/95 text-white border-2 border-sky-400 rounded-2xl px-4 py-3 shadow-2xl max-w-sm w-full animate-fade">
+    <div class="flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping"></span>
+        <span class="text-xs font-extrabold text-sky-300 uppercase tracking-wider">🎧 Radio Thụ Động Đang Phát</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <button type="button" onclick="nextHandsFreeRadioTrack()" class="px-2 py-0.5 rounded bg-stone-800 hover:bg-stone-700 text-[11px] font-bold text-amber-300">⏭️ Câu tiếp</button>
+        <button type="button" onclick="toggleHandsFreeRadio()" class="px-2 py-0.5 rounded bg-rose-600 hover:bg-rose-700 text-[11px] font-bold text-white">⏹️ Tắt</button>
+      </div>
+    </div>
+    <div id="radio-current-hanzi" class="text-base font-extrabold hanzi-font text-white mt-1.5 truncate">很高兴认识你，以后请多关照！</div>
+    <div id="radio-current-pinyin" class="text-xs text-emerald-300 truncate">Hěn gāoxìng rènshi nǐ, yǐhòu qǐng duō guānzhào!</div>
+    <div id="radio-current-vi" class="text-[11px] text-stone-300 italic truncate">Rất vui được quen biết bạn, sau này mong được chỉ giáo nhiều hơn!</div>
+  </div>
+
+  <!-- ==================== MOBILE BOTTOM NAVIGATION BAR ==================== -->
+  <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-stone-900/95 backdrop-blur border-t border-stone-800 px-2 py-1.5 flex items-center justify-around text-[10px] font-bold text-stone-300">
+    <button type="button" onclick="switchMainTab('lessons')" class="flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg hover:text-amber-400">
+      <span class="text-base">📚</span>
+      <span>Bài Học</span>
+    </button>
+    <button type="button" onclick="switchMainTab('roleplay')" class="flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg text-emerald-300 hover:text-amber-400">
+      <span class="text-base">💬</span>
+      <span>Chat & Nhại</span>
+    </button>
+    <button type="button" onclick="switchMainTab('arena')" class="flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg hover:text-amber-400">
+      <span class="text-base">⚔️</span>
+      <span>Luyện Đề</span>
+    </button>
+    <button type="button" onclick="openInventoryModal()" class="flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg text-purple-300 hover:text-amber-400">
+      <span class="text-base">🎒</span>
+      <span>Túi Đồ/Gacha</span>
+    </button>
+    <button type="button" onclick="switchMainTab('dashboard')" class="flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg hover:text-amber-400">
+      <span class="text-base">📊</span>
+      <span>Sổ Tay</span>
+    </button>
+  </div>
+
+  <!-- ==================== INVENTORY & SKIN CUSTOMIZATION MODAL (TÚI CÀN KHÔN) ==================== -->
+  <div id="inventory-backpack-modal" class="fixed inset-0 z-50 hidden bg-stone-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-3xl max-w-4xl w-full border border-stone-200 shadow-2xl overflow-hidden animate-fade flex flex-col max-h-[88vh]">
+      <!-- Modal Header -->
+      <div class="bg-stone-900 text-white px-5 py-4 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-purple-600 to-amber-500 flex items-center justify-center text-2xl shadow">🎒</div>
+          <div>
+            <h3 class="text-base sm:text-lg font-extrabold text-amber-300">Túi Càn Khôn • Kho Ngoại Trang & Vật Phẩm Gacha</h3>
+            <p class="text-xs text-stone-300">Trang bị Khung Viền Thủy Mặc, Bút Lông Hoàng Gia, Giao Diện Cổ Phong & Sử dụng Đan Dược Bổ Trợ</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeInventoryModal(); triggerGachaPull('single');" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-vermilion-600 text-stone-950 text-xs font-black shadow hover:opacity-95">
+            🎰 Quay Gacha (<span id="inv-modal-ticket-count">5</span> 🎫)
+          </button>
+          <button type="button" onclick="closeInventoryModal()" class="text-stone-400 hover:text-white text-lg font-bold px-2">✕</button>
+        </div>
+      </div>
+
+      <!-- 3 Inventory Category Subtabs -->
+      <div class="bg-stone-100 border-b border-stone-200 px-5 py-2.5 flex flex-wrap gap-2">
+        <button type="button" id="inv-tab-cosmetics" onclick="switchInventoryTab('cosmetics')" class="px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-stone-900 text-white shadow-sm transition">
+          🎨 1. Ngoại Trang & Skin (Khung Thủy Mặc, Bút Lông, Giao Diện)
+        </button>
+        <button type="button" id="inv-tab-consumables" onclick="switchInventoryTab('consumables')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-white text-stone-700 border border-stone-200 hover:bg-stone-50 transition">
+          📦 2. Vật Phẩm Tiêu Hao (Bùa Streak, x2 XP, Quẻ Xăm)
+        </button>
+        <button type="button" id="inv-tab-unlockables" onclick="switchInventoryTab('unlockables')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-white text-stone-700 border border-stone-200 hover:bg-stone-50 transition">
+          📜 3. Bí Kíp Cổ Văn & Chìa Khóa Kịch Bản
+        </button>
+      </div>
+
+      <!-- Inventory Content Body -->
+      <div id="inventory-modal-body" class="p-5 overflow-y-auto space-y-5 flex-1 text-xs sm:text-sm"></div>
+    </div>
+  </div>
+
+  <!-- ==================== FULLSCREEN CINEMATIC INTRO MODAL (GACHA VIDEO / LEVEL UP / TITLE UNLOCK) ==================== -->
+  <div id="cinematic-intro-modal" class="fixed inset-0 z-50 hidden bg-stone-950/95 backdrop-blur-md flex items-center justify-center p-4 overflow-hidden select-none" onclick="dismissCinematicIntro()">
+    <!-- Animated Light Rays Background -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+      <div id="cinematic-bg-rays" class="w-[850px] h-[850px] rounded-full anim-ray-spin bg-gradient-to-r from-amber-500/20 via-transparent to-vermilion-500/20 blur-2xl"></div>
+    </div>
+
+    <!-- STAGE 1: Fullscreen Summoning Video Player (Plays before Card Reveal on Gacha Pulls) -->
+    <div id="cinematic-video-stage" class="relative z-20 hidden max-w-3xl w-full flex flex-col items-center space-y-3" onclick="event.stopPropagation()">
+      <div class="w-full flex items-center justify-between px-2">
+        <span class="text-xs font-black tracking-widest uppercase text-amber-300 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+          <span>ĐANG TRIỆU HỒI BÍ KÍP & BÁU VẬT GACHA...</span>
+        </span>
+        <button type="button" onclick="skipGachaVideoToCard()" class="px-4 py-1.5 rounded-full bg-stone-900/90 hover:bg-stone-800 text-amber-300 border border-amber-400/50 text-xs font-extrabold shadow-lg transition">
+          ⏩ Bỏ qua Intro (Skip)
+        </button>
+      </div>
+      <div class="w-full rounded-3xl overflow-hidden border-2 border-amber-400 shadow-2xl bg-black aspect-video flex items-center justify-center">
+        <video id="cinematic-gacha-video" src="https://res.cloudinary.com/idtxlije/video/upload/v1793801051/Gacha_Scripture_Summoning.mp4" class="w-full h-full object-cover" playsinline preload="auto"></video>
+      </div>
+    </div>
+
+    <!-- STAGE 2: Center Cinematic Card Stage -->
+    <div id="cinematic-card-stage" class="relative z-10 max-w-md w-full text-center space-y-5 anim-card-slam" onclick="event.stopPropagation()">
+      <!-- Top Tagline & Star Rating -->
+      <div class="space-y-1">
+        <div id="cinematic-category-tag" class="inline-block text-[11px] font-black tracking-widest uppercase px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow">
+          LEVEL UP • THĂNG CẤP BẬC
+        </div>
+        <div id="cinematic-star-row" class="text-xl sm:text-2xl text-amber-400 tracking-widest drop-shadow-md">
+          ⭐⭐⭐⭐⭐
+        </div>
+      </div>
+
+      <!-- Main Showcase Card -->
+      <div id="cinematic-card-box" class="bg-gradient-to-b from-stone-900 to-stone-950 border-2 border-amber-500 rounded-3xl p-6 sm:p-8 shadow-2xl aura-gold space-y-4 relative overflow-hidden">
+        <!-- Floating Glow Accent -->
+        <div id="cinematic-card-glow" class="absolute -top-12 -left-12 w-36 h-36 bg-amber-500/30 rounded-full blur-2xl pointer-events-none"></div>
+
+        <!-- Big Visual Icon / Avatar / Badge -->
+        <div id="cinematic-card-icon" class="w-24 h-24 mx-auto rounded-2xl bg-stone-800 border-2 border-amber-400 flex items-center justify-center text-5xl shadow-inner">
+          👑
+        </div>
+
+        <!-- Title & Subtitle -->
+        <div class="space-y-1">
+          <h2 id="cinematic-card-title" class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-100 to-amber-400 tracking-tight">
+            ĐẠI SƯ HOA NGỮ HSK 9
+          </h2>
+          <p id="cinematic-card-subtitle" class="text-xs sm:text-sm font-semibold text-amber-200/90">
+            Mở khóa danh hiệu Huyền Thoại & Toàn bộ tính năng cao cấp!
+          </p>
+        </div>
+
+        <!-- Reward Details & Lore Description -->
+        <div id="cinematic-card-desc" class="bg-stone-900/80 border border-stone-800 rounded-2xl p-3.5 text-xs text-stone-300 leading-relaxed text-left space-y-1">
+          <div class="text-[11px] text-amber-400 font-bold uppercase">🎁 Chiến Lợi Phẩm Nhận Được:</div>
+          <div class="text-stone-200 font-semibold">• +1 Vé Quay Gacha May Mắn 🎫</div>
+          <div class="text-stone-200 font-semibold">• Mở khóa Thư Pháp Mực Son Hoàng Gia 🖌️</div>
+        </div>
+      </div>
+
+      <!-- Bottom Tap to Continue Action Button -->
+      <div>
+        <button type="button" onclick="dismissCinematicIntro()" class="px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-vermilion-600 hover:from-amber-400 hover:to-vermilion-500 text-stone-950 font-black text-sm shadow-xl transition transform hover:scale-105 active:scale-95">
+          CHẤP NHẬN & TIẾP TỤC ➔
+        </button>
+        <p class="text-[11px] text-stone-400 mt-2">Chạm bất kỳ đâu bên ngoài để đóng</p>
+      </div>
+    </div>
+  </div>
+
     <!-- Modular Scripts (Data -> State -> Controllers) -->
   <script src="js/state.js"></script>
   <script src="js/data/lessons.js"></script>

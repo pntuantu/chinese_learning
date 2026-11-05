@@ -1,4 +1,4 @@
-// Core Storage, Audio/Speech, Tab 1 (Bài học) & Tab 2 (Pinyin/Bộ thủ)
+// Core Storage, Audio/Speech, Level/Gacha/Skin Engine, Tab 1 & Tab 2
 // 6. STORAGE, AUDIO SYNTHESIS, SPEECH & CORE UI HELPERS
     // =========================================================================
     function loadSavedState() {
